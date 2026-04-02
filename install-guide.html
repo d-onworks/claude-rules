@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D-ONWORKS Claude Rules 설치 가이드</title>
+<style>
+  @page { size: A4; margin: 20mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', 'Malgun Gothic', sans-serif;
+    color: #191c1d;
+    background: #fff;
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 24mm 20mm;
+    line-height: 1.6;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #064e3b;
+    margin-bottom: 32px;
+  }
+  .logo {
+    background: linear-gradient(135deg, #003527, #064e3b);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 900;
+    padding: 10px 18px;
+    border-radius: 8px;
+    letter-spacing: -0.5px;
+  }
+  .header-text h1 {
+    font-size: 22px;
+    color: #003527;
+    font-weight: 800;
+  }
+  .header-text p {
+    font-size: 12px;
+    color: #707974;
+    margin-top: 2px;
+  }
+
+  /* Info box */
+  .info-box {
+    background: #f3f4f5;
+    border-left: 4px solid #006e2d;
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 32px;
+    font-size: 13px;
+  }
+  .info-box strong { color: #003527; }
+
+  /* Steps */
+  .step {
+    margin-bottom: 28px;
+    page-break-inside: avoid;
+  }
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .step-number {
+    background: #064e3b;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .step-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #003527;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: #404944;
+    margin-left: 48px;
+    margin-bottom: 10px;
+  }
+
+  /* Code block */
+  .code-block {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    margin-left: 48px;
+    overflow-x: auto;
+    position: relative;
+    line-height: 1.8;
+  }
+  .code-block .prompt { color: #7ffc97; }
+  .code-block .cmd { color: #fff; }
+  .code-block .comment { color: #64748b; font-style: italic; }
+
+  /* Sub-steps */
+  .sub-steps {
+    margin-left: 48px;
+    margin-bottom: 12px;
+  }
+  .sub-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: #404944;
+    margin-bottom: 6px;
+  }
+  .sub-step .dot {
+    width: 6px;
+    height: 6px;
+    background: #006e2d;
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+
+  /* Screenshot hint */
+  .hint {
+    margin-left: 48px;
+    background: #fffbeb;
+    border: 1px solid #fbbf24;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #92400e;
+    margin-top: 8px;
+  }
+  .hint::before { content: "TIP  "; font-weight: 700; }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px dashed #bfc9c3;
+    margin: 24px 0;
+  }
+
+  /* Result box */
+  .result {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin-left: 48px;
+    font-size: 13px;
+    color: #064e3b;
+  }
+  .result::before {
+    content: "OK ";
+    font-weight: 800;
+    color: #006e2d;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 2px solid #edeeef;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #707974;
+  }
+
+  @media print {
+    body { padding: 0; width: auto; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">D-ONWORKS</div>
+    <div class="header-text">
+      <h1>Claude Rules 설치 가이드</h1>
+      <p>Claude Code 공통 규칙 배포 매뉴얼 (Windows)</p>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="info-box">
+    <strong>이 매뉴얼은 무엇인가요?</strong><br>
+    D-ONWORKS 팀에서 사용하는 Claude Code 공통 규칙(CLAUDE.md)과 설정(managed-settings.json)을
+    새 PC에 설치하거나 업데이트하는 방법을 안내합니다. 총 <strong>2단계</strong>로, 5분이면 완료됩니다.
+  </div>
+
+  <!-- Step 1 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title">규칙 파일 다운로드 (Git Clone)</div>
+    </div>
+    <div class="step-desc">
+      GitHub에서 규칙 파일을 내 PC로 복사합니다. 처음 1번만 하면 됩니다.
+    </div>
+    <div class="sub-steps">
+      <div class="sub-step"><div class="dot"></div><div>작업표시줄 검색에서 <strong>PowerShell</strong> 또는 <strong>명령 프롬프트(cmd)</strong>를 검색하여 엽니다.</div></div>
+      <div class="sub-step"><div class="dot"></div><div>아래 명령어를 <strong>복사 &rarr; 붙여넣기 &rarr; Enter</strong> 합니다.</div></div>
+    </div>
+    <div class="code-block">
+      <span class="prompt">&gt;</span> <span class="cmd">git clone https://github.com/d-onworks/claude-rules.git C:\src\claude-rules</span>
+    </div>
+    <div class="hint">이미 한번 실행한 적 있다면 이 단계는 건너뛰세요. 2단계에서 자동으로 최신 버전을 받습니다.</div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Step 2 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-number">2</div>
+      <div class="step-title">규칙 설치 (관리자 권한 필요)</div>
+    </div>
+    <div class="step-desc">
+      다운로드한 규칙 파일을 Claude Code가 읽는 위치에 복사합니다.<br>
+      <strong>C:\Program Files</strong> 폴더에 쓰기 때문에 <strong>관리자 권한</strong>이 필요합니다.
+    </div>
+    <div class="sub-steps">
+      <div class="sub-step"><div class="dot"></div><div>작업표시줄에서 <strong>PowerShell</strong>을 검색합니다.</div></div>
+      <div class="sub-step"><div class="dot"></div><div><strong>"관리자 권한으로 실행"</strong>을 클릭합니다. (우클릭 또는 오른쪽 메뉴)</div></div>
+      <div class="sub-step"><div class="dot"></div><div>아래 명령어를 <strong>복사 &rarr; 붙여넣기 &rarr; Enter</strong> 합니다.</div></div>
+    </div>
+    <div class="code-block">
+      <span class="prompt">PS(관리자)&gt;</span> <span class="cmd">powershell -ExecutionPolicy Bypass -File C:\src\claude-rules\deploy.ps1</span>
+    </div>
+    <div class="hint">"관리자 권한으로 실행"이 안 보이면, PowerShell 아이콘을 우클릭하면 나옵니다.</div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Success -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-number" style="background:#006e2d;">&#10003;</div>
+      <div class="step-title">설치 완료 확인</div>
+    </div>
+    <div class="step-desc">
+      아래와 같은 메시지가 나오면 성공입니다.
+    </div>
+    <div class="result">
+      설치 완료!<br>
+      - 규칙 위치: C:\Program Files\ClaudeCode\CLAUDE.md<br>
+      - 설정 위치: C:\Program Files\ClaudeCode\managed-settings.json<br>
+      - Claude Code 재시작 시 자동 적용됩니다.
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>D-ONWORKS Claude Rules Install Guide v1.0</span>
+    <span>문의: D-ONWORKS 개발팀</span>
+  </div>
+
+</body>
+</html>
